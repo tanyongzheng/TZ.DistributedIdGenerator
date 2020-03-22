@@ -1,8 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/tanyongzheng/TZ.DistributedIdGenerator</PackageProjectUrl>
+    <Description>分布式Id生成器接口</Description>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Authors>tanyongzheng</Authors>
   </PropertyGroup>
 
   <ItemGroup>
