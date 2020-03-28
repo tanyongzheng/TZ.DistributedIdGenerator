@@ -81,6 +81,7 @@ namespace TZ.RedisIdGenerator
         {
             lock (lockObj)
             {
+                startId = startId - increment + 1;
                 foreach (var redis in redisList)
                 {
                     var idKey = idKeyPrefix + tableName;
