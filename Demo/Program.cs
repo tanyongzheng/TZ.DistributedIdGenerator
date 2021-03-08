@@ -13,7 +13,7 @@ namespace Demo
         //private static IDistributedIdService idService;
 
         private static RedisIdConfigOptions  options = new RedisIdConfigOptions();
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             
             int minWorker, minIOC;
@@ -33,10 +33,13 @@ namespace Demo
             idService = new RedisIdService(options);
             var tableName = "User";
             idService.InitStartId(tableName, 0);
-            for (var i = 0; i < 150; i++)
+            for (var i = 0; i < 10; i++)
             {
-                Task.Run(()=> {
-                    GetIds(100);
+                await Task.Run(()=> {
+                    GetIds(10000);
+                });
+                await Task.Run(async ()=> {
+                    await GetIdsAsync(10000);
                 });
             }
             Console.ReadKey();
@@ -54,10 +57,28 @@ namespace Demo
             {
                 var id = idService.GetDistributedId(tableName);
                 //Console.WriteLine($"第{(i + 1)}个Id:{id}");
-                Console.WriteLine(id);
+                // Console.WriteLine(id);
             }
             watch.Stop();
-            Console.WriteLine($"总用时{watch.ElapsedMilliseconds}毫秒");
+            Console.WriteLine($"同步获取{count}Id,总用时{watch.ElapsedMilliseconds}毫秒");
+        }
+
+        static async Task GetIdsAsync(int count)
+        {
+            //var options = new RedisIdConfigOptions();
+            //options.SetConfig();
+            var idService = new RedisIdService(options);
+            var tableName = "User";
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            for (var i = 0; i < count; i++)
+            {
+                var id =await idService.GetDistributedIdAsync(tableName);
+                //Console.WriteLine($"第{(i + 1)}个Id:{id}");
+                //Console.WriteLine(id);
+            }
+            watch.Stop();
+            Console.WriteLine($"异步获取{count}Id,总用时{watch.ElapsedMilliseconds}毫秒");
         }
     }
 }

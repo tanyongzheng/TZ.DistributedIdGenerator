@@ -8,7 +8,7 @@ using TZ.DistributedIdGenerator;
 
 namespace TZ.RedisIdGenerator
 {
-    public class RedisIdService : IDistributedIdService
+    public partial class RedisIdService : IDistributedIdService
     {
         private static int callCount = 0;
         private static List<ConnectionMultiplexer> redisList;
