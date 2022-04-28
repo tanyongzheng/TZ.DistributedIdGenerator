@@ -81,6 +81,39 @@ namespace TZ.RedisIdGenerator
         {
             lock (lockObj)
             {
+                // 判断是否已初始化
+                var hasInit = true;
+
+                for (var i = 0; i < redisList.Count; i++)
+                {
+                    var redis = redisList[i];
+                    var idKey = idKeyPrefix + tableName;
+                    if (!redis.GetDatabase().KeyExists(idKey))
+                    {
+                        hasInit = false;
+                        break;
+                    }
+                }
+
+                //已初始化且开始Id为1
+                if (hasInit && startId == 1)
+                {
+                    return;
+                }
+
+                //未初始化且开始Id为1
+                if (!hasInit && startId == 1)
+                {
+                    for (var i = 0; i < redisList.Count; i++)
+                    {
+                        var initId = i - increment + 1;
+                        var redis = redisList[i];
+                        var idKey = idKeyPrefix + tableName;
+                        redis.GetDatabase().StringSet(idKey, initId);
+                    }
+                    return;
+                }
+
                 startId = startId - increment + 1;
                 foreach (var redis in redisList)
                 {

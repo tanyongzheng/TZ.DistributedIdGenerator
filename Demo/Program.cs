@@ -32,7 +32,7 @@ namespace Demo
             IDistributedIdService idService = new RedisIdService(options);
             idService = new RedisIdService(options);
             var tableName = "User";
-            idService.InitStartId(tableName, 0);
+            idService.InitStartId(tableName, 1);
             for (var i = 0; i < 10; i++)
             {
                 await Task.Run(()=> {
