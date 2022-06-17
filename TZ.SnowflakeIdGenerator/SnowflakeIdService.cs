@@ -49,7 +49,7 @@ namespace TZ.SnowflakeIdGenerator
             return CreateDistributedId();
         }
 
-        public void InitStartId(string tableName, long startId)
+        public void InitStartId(string tableName, long startId, bool skipInitialized = true)
         {
             throw new NotImplementedException();
         }

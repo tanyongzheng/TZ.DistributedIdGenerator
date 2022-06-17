@@ -76,8 +76,9 @@ namespace TZ.RedisIdGenerator
         /// </summary>
         /// <param name="tableName">表名</param>
         /// <param name="startId">起始Id</param>
+        /// <param name="skipInitialized">是否跳过已初始化（默认跳过，防止重启多次执行）</param>
         /// <returns></returns>
-        public void InitStartId(string tableName, long startId)
+        public void InitStartId(string tableName, long startId, bool skipInitialized = true)
         {
             lock (lockObj)
             {
@@ -95,8 +96,8 @@ namespace TZ.RedisIdGenerator
                     }
                 }
 
-                //已初始化且开始Id为1
-                if (hasInit && startId == 1)
+                //已初始化跳过
+                if (hasInit && skipInitialized)
                 {
                     return;
                 }

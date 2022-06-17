@@ -20,7 +20,8 @@ namespace TZ.DistributedIdGenerator
         /// </summary>
         /// <param name="tableName">表名</param>
         /// <param name="startId">起始Id</param>
+        /// <param name="skipInitialized">是否跳过已初始化（默认跳过，防止重启多次执行）</param>
         /// <returns></returns>
-        void InitStartId(string tableName, long startId);
+        void InitStartId(string tableName, long startId, bool skipInitialized = true);
     }
 }

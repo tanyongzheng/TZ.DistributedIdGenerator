@@ -7,7 +7,7 @@
     <Description>分布式Id生成器接口</Description>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>tanyongzheng</Authors>
-    <Version>1.2.0</Version>
+    <Version>1.2.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
